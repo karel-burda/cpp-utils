@@ -1,0 +1,15 @@
+stages:
+  - generation, tests
+
+jobs:
+  include:
+     - stage: generation, tests
+       dist: trusty
+       os: linux
+       script:
+         - set -e
+
+         - cmake -Bbuild -H.
+         - cmake -Bbuild -H. -DUNIT_TESTS:BOOL=ON
+
+         - set +e
