@@ -1,6 +1,5 @@
 ![Version](https://img.shields.io/badge/version-0.9.0-green.svg)
 [![License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat)](LICENSE)
-#[![Build Status](https://travis-ci.org/karel-burda/cmake-helpers.svg?branch=develop)](https://travis-ci.org/karel-burda/cmake-helpers)
 
 # Introduction
 `cpp-utils` features tiny c++ helper and primitives that are used across my projects.
