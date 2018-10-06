@@ -1,0 +1,6 @@
+[submodule "cmake-helpers"]
+	path = cmake-helpers
+	url = https://github.com/karel-burda/cmake-helpers
+[submodule "test-utils"]
+	path = test-utils
+	url = https://github.com/karel-burda/test-utils
