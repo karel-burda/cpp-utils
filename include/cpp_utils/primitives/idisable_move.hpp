@@ -14,6 +14,7 @@ namespace primitives
 struct idisable_move
 {
     idisable_move() = default;
+    ~idisable_move() = default;
 
     idisable_move(const idisable_move &) = default;
     idisable_move & operator=(const idisable_move &) = default;
