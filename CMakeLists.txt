@@ -26,5 +26,8 @@ add_custom_target(${PROJECT_NAME} SOURCES ${HEADERS} ${OTHER})
 configure_file(${PROJECT_NAME}-config.cmake.in "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake" @ONLY)
 
 if (UNIT-TESTS)
+    unset(UNIT-TESTS CACHE)
+    add_subdirectory(test-utils)
+
     add_subdirectory(tests/unit)
 endif()
