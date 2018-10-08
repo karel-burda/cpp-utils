@@ -19,8 +19,8 @@ struct idisable_move
     idisable_move(const idisable_move &) = default;
     idisable_move & operator=(const idisable_move &) = default;
 
-    idisable_move & operator=(idisable_move &&) = delete;
     idisable_move(idisable_move &&) = delete;
+    idisable_move & operator=(idisable_move &&) = delete;
 };
 }
 }

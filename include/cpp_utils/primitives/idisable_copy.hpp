@@ -19,8 +19,8 @@ struct idisable_copy
     idisable_copy(const idisable_copy &) = delete;
     idisable_copy & operator=(const idisable_copy &) = delete;
 
-    idisable_copy & operator=(idisable_copy &&) = default;
     idisable_copy(idisable_copy &&) = default;
+    idisable_copy & operator=(idisable_copy &&) = default;
 };
 }
 }
