@@ -14,7 +14,8 @@ _set_default_build_type("Debug")
 
 set(HEADERS
     include/cpp_utils/primitives/idisable_copy.hpp
-    include/cpp_utils/primitives/idisable_move.hpp)
+    include/cpp_utils/primitives/idisable_move.hpp
+    include/cpp_utils/time/measure_duration.hpp)
 
 set(OTHER
     README.md

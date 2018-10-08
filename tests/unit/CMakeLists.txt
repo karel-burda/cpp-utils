@@ -17,7 +17,8 @@ target_sources(
     ${PROJECT_NAME}
         PUBLIC
             src/primitives/idisable_copy_test.cpp
-            src/primitives/idisable_move_test.cpp)
+            src/primitives/idisable_move_test.cpp
+            src/time/measure_duration_test.cpp)
 
 add_dependencies(${PROJECT_NAME} gtest-build)
 
