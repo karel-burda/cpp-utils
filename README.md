@@ -11,16 +11,14 @@ If you just want to use the implementation, you can clone **without** sub-module
 with `--recurse-submodules` or `--recursive` on older versions of git. Alternatively, you can clone without sub-modules and initialize these later.
 
 # Introduction
-`cpp-utils` features tiny c++ helper and primitives that are used across my projects.
+`cpp-utils` features tiny c++ helpers and primitives that are used across my projects.
 
 Implementation is header-only.
 
 See [include/cpp_utils](include/cpp_utils) for main functionality and [tests/unit](tests/unit) for unit tests.
 
 # Usage
-In order to use the `test-utils`, it's the `include` directory that matters. Just make sure that the header search path is pointing to the [include](include) directory located in the root directory.
-
-`test-utils` uses macros from the `gtest`, so include path to the `gtest` should also be visible in the final project.
+In order to use the `cpp-utils`, it's the `include` directory that matters. Just make sure that the header search path is pointing to the [include](include) directory located in the root directory.
 
 You can use the provided CMake package configuration at [cpp-utils-config.cmake.in](cpp-utils-config.cmake.in).
 
@@ -45,6 +43,11 @@ class foo : private burda::cpp_utils::primitives::idisable_copy
 class foo : private burda::cpp_utils::primitives::idisable_move
 {
 };
+
+class crippled : private burda::cpp_utils::primitives::idisable_move
+                 private burda::cpp_utils::primitives::idisable_copy
+{
+}
 ```
 
 ### measure_duration.hpp
@@ -52,7 +55,7 @@ class foo : private burda::cpp_utils::primitives::idisable_move
 #include <cpp_utils/time/measure_duration.hpp>
 
 // this should yield around 4 seconds, "duration" is of type "std::chrono<double>"
- const auto duration = test_utils::measure_duration([]() { std::this_thread::sleep_for(4s); });
+ const auto duration = burda::cpp_utils::measure_duration([]() { std::this_thread::sleep_for(4s); });
 ```
 
 # Build Process
@@ -74,10 +77,9 @@ For building tests, run cmake with the option `UNIT-TESTS=ON`:
 # Continuous Integration
 Continuous Integration is now being run Linux (with GCC 5.x) on Travis: https://travis-ci.org/karel-burda/cpp-utils.
 
-Compilers are set-up to treat warnings as errors and with pedantic warning level. Targets are built in a release mode with debug symbols and code coverage measure).
+Compilers are set-up to treat warnings as errors and with pedantic warning level. Targets are built in release mode with debug symbols and code coverage measure).
 
 The project is using just one stage (because of the overhead of spawning other stages)
 * `tests (C++14)` -- cppcheck, build (linux, gcc5), tests
 
 Project uses [coveralls.io](https://coveralls.io/github/karel-burda/cpp-utils) for code coverage summary and [codacy](https://app.codacy.com/app/karel-burda/cpp-utils/dashboard) for the coding style and additional static analysis.
-
