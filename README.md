@@ -32,7 +32,7 @@ For full examples, see implementation of [tests](tests/unit).
 #include <cpp_utils/primitives/idisable_copy.hpp>
 
 // foo has deleted copy semantics
-class foo : private burda::cpp_utils::primitives::idisale_copy
+class foo : private burda::cpp_utils::primitives::idisable_copy
 {
 };
 ```
@@ -41,8 +41,8 @@ class foo : private burda::cpp_utils::primitives::idisale_copy
 ```cpp
 #include <cpp_utils/primitives/idisable_move.hpp>
 
-// foo has deleted moce semantics
-class foo : private burda::cpp_utils::primitives::idisale_move
+// foo has deleted move semantics
+class foo : private burda::cpp_utils::primitives::idisable_move
 {
 };
 ```
