@@ -1,5 +1,8 @@
 #pragma once
 
+/// Origin: https://github.com/karel-burda/cpp-utils
+/// Version: 1.0.0
+
 #include <chrono>
 #include <functional>
 #include <stdexcept>

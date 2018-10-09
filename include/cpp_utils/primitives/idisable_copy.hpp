@@ -1,7 +1,7 @@
 #pragma once
 
 /// Origin: https://github.com/karel-burda/cpp-utils
-/// Version : 1.1.0
+/// Version: 1.1.0
 
 namespace burda
 {
