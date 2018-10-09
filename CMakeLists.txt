@@ -26,7 +26,8 @@ add_custom_target(${PROJECT_NAME} SOURCES ${HEADERS} ${OTHER})
 
 configure_file(${PROJECT_NAME}-config.cmake.in "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake" @ONLY)
 
-if (UNIT-TESTS)
+if (UNIT-TESTS AND NOT USED-AS-SUBMODULE)
+    # test-utils are being used as a git sub-module
     set(USED-AS-SUBMODULE ON BOOL)
     add_subdirectory(test-utils)
 
