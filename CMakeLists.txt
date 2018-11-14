@@ -1,35 +1,31 @@
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 
-project(cpp-utils VERSION 0.9.0 LANGUAGES CXX)
+project(cpp-utils VERSION 1.0.0 LANGUAGES CXX)
 
-include("cmake-helpers/cmake-helpers/messages.cmake")
-include("cmake-helpers/cmake-helpers/standard-settings.cmake")
+add_library(${PROJECT_NAME} INTERFACE)
 
-option(UNIT-TESTS "Build with unit tests" OFF)
+target_sources(${PROJECT_NAME}
+                   INTERFACE
+                       ${CMAKE_CURRENT_SOURCE_DIR}/include/cpp_utils/primitives/idisable_copy.hpp
+                       ${CMAKE_CURRENT_SOURCE_DIR}/include/cpp_utils/primitives/idisable_move.hpp
 
-_print_project_version()
+                       ${CMAKE_CURRENT_SOURCE_DIR}/include/cpp_utils/time/measure_duration.hpp)
 
-_set_standards("11" "14")
-_set_default_build_type("Debug")
+target_include_directories(${PROJECT_NAME}
+                                INTERFACE
+                                    ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-set(HEADERS
-    include/cpp_utils/primitives/idisable_copy.hpp
-    include/cpp_utils/primitives/idisable_move.hpp
-    include/cpp_utils/time/measure_duration.hpp)
+target_compile_features(${PROJECT_NAME}
+                            INTERFACE
+                                cxx_std_14)
 
-set(OTHER
-    README.md
-    .travis.yml
-    ${PROJECT_NAME}-config.cmake.in)
+install(TARGETS ${PROJECT_NAME}
+        EXPORT _targets)
 
-add_custom_target(${PROJECT_NAME} SOURCES ${HEADERS} ${OTHER})
+export(EXPORT _targets
+        NAMESPACE burda::
+        FILE "${PROJECT_NAME}-config.cmake")
 
-configure_file(${PROJECT_NAME}-config.cmake.in "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake" @ONLY)
-
-if (UNIT-TESTS AND NOT USED-AS-SUBMODULE)
-    # test-utils are being used as a git sub-module
-    set(USED-AS-SUBMODULE ON BOOL)
-    add_subdirectory(test-utils)
-
-    add_subdirectory(tests/unit)
-endif()
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
+        COMPATIBILITY ExactVersion)
