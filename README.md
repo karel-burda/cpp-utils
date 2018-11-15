@@ -1,31 +1,89 @@
-![Version](https://img.shields.io/badge/version-0.9.0-green.svg)
+![Version](https://img.shields.io/badge/version-1.0.2-green.svg)
 [![License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat)](LICENSE)
 [![Build Status](https://travis-ci.org/karel-burda/cpp-utils.svg?branch=develop)](https://travis-ci.org/karel-burda/cpp-utils)
-[![Coverage Status](https://coveralls.io/repos/github/karel-burda/cpp-utils/badge.svg?branch=develop)](https://coveralls.io/github/karel-burda/cpp-utils?branch=develop)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fd08a5e184a945208324fd7a415428ad)](https://app.codacy.com/app/karel-burda/cpp-utils?utm_source=github.com&utm_medium=referral&utm_content=karel-burda/function-loader&utm_campaign=Badge_Grade_Dashboard)
+[![Codecov Status](https://codecov.io/gh/karel-burda/cpp-utils/branch/develop/graph/badge.svg)](https://codecov.io/gh/karel-burda/cpp-utils/branch/develop)
 
 # Important
-This project contains git sub-modules that are needed for building example and tests.
+This project contains git sub-modules that are needed for building tests.
 
-If you just want to use the implementation, you can clone **without** sub-modules. In case you want to build example, tests, or use CMake, please, be sure to clone the repository
+If you just want to use the implementation, you can clone without sub-modules. In case you want to build the tests, be sure to clone the repository
 with `--recurse-submodules` or `--recursive` on older versions of git. Alternatively, you can clone without sub-modules and initialize these later.
 
 # Introduction
 `cpp-utils` features tiny c++ helpers and primitives that are used across my projects.
 
-Implementation is header-only.
+Implementation is header-only and written in C++ 14 and tested on Windows, Linux and OS X.
 
-See [include/cpp_utils](include/cpp_utils) for main functionality and [tests/unit](tests/unit) for unit tests.
+See [include/test_utils](include/test_utils) for main functionality and [tests/unit](tests/unit) for unit tests.
 
 # Usage
-In order to use the `cpp-utils`, it's the `include` directory that matters. Just make sure that the header search path is pointing to the [include](include) directory located in the root directory.
+There are basically these options when it comes to build system integration:
 
-You can use the provided CMake package configuration at [cpp-utils-config.cmake.in](cpp-utils-config.cmake.in).
+## 1. CMake Way
+Recommended option.
+
+There are essentially these ways of how to use this package depending on your preferences our build architecture:
+
+### A) Generate directly
+
+Call `add_subdirectory(...)` directly in your CMakeLists.txt:
+
+```cmake
+add_executable("my-project" main.cpp)
+
+add_subdirectory(<path-to-cpp-utils>)
+# Example: add_subdirectory(cpp-utils ${CMAKE_BINARY_DIR}/cpp-utils)
+
+# Query of package version
+message(STATUS "Current version of cpp-utils is: ${cpp-utils_VERSION}")
+
+add_library(burda::cpp-utils ALIAS cpp-utils)
+
+# This will import search paths, compile definitions and other dependencies of the cpp-utils as well
+target_link_libraries("my-project" cpp-utils)
+# Or with private visibility: target_link_libraries("my-project" PRIVATE cpp-utils)
+
+```
+
+### B) Generate separately
+
+Generation phase on the cpp-utils is run separately, that means that you run:
+```cmake
+cmake <path-to-cpp-utils>
+# Example: cmake -Bbuild/cpp-utils -Hcpp-utils in the root of your project 
+```
+
+This will create automatically generated package configuration file `cpp-utils-config.cmake` that contains exported target and all important information.
+
+Then you can do this in your CMakeLists.txt:
+
+```cmake
+add_executable("my-project" main.cpp)
+
+find_package(cpp-utils CONFIG PATHS <path-to-binary-dir-of-cpp-utils>)
+# Alternatively assuming that the "cpp-utils_DIR" variable is set: find_package(cpp-utils CONFIG)
+
+# You can also query (or force specific version during the previous "find_package()" call)
+message(STATUS "Found version of cpp-utils is: ${cpp-utils_VERSION}")
+
+# This will import search paths, compile definitions and other dependencies of the cpp-utils as well
+target_link_libraries("my-project" burda::cpp-utils)
+# Or with public visibility: target_link_libraries("my-project" PUBLIC burda::cpp-utils)
+
+```
+
+## 2. Manual Way
+Not recommended.
+
+Make sure that the `include` directory is in the search paths.
+
+You also have to set C++14 standard and potentially other settings as well.
 
 ## Examples
 For full examples, see implementation of [tests](tests/unit).
 
 ### idisable_copy.hpp
+Test implemented at: [idisable_copy_test.cpp](tests/unit/src/idisable_copy_test.cpp)
 ```cpp
 #include <cpp_utils/primitives/idisable_copy.hpp>
 
@@ -36,6 +94,7 @@ class foo : private burda::cpp_utils::primitives::idisable_copy
 ```
 
 ### idisable_move.hpp
+Test implemented at: [idisable_move_test.cpp](tests/unit/src/idisable_move_test.cpp)
 ```cpp
 #include <cpp_utils/primitives/idisable_move.hpp>
 
@@ -51,6 +110,7 @@ class crippled : private burda::cpp_utils::primitives::idisable_move
 ```
 
 ### measure_duration.hpp
+Test implemented at: [measure_duration_test.cpp](tests/unit/src/measure_duration_test.cpp)
 ```cpp
 #include <cpp_utils/time/measure_duration.hpp>
 
@@ -58,28 +118,31 @@ class crippled : private burda::cpp_utils::primitives::idisable_move
  const auto duration = burda::cpp_utils::measure_duration([]() { std::this_thread::sleep_for(4s); });
 ```
 
-# Build Process
-For generation of project containing the implementation, run the cmake in the top-level directory like this:
-
-`cmake .`
-
-I personally prefer to specify a separate build directory explicitly:
-
-`cmake -Bbuild -H.`
-
-You can of course specify ordinary cmake options like build type (debug, release with debug info, ...), used generator, etc.
-
 # Unit Tests
-For building tests, run cmake with the option `UNIT-TESTS=ON`:
+Tests require sub-module [cmake-helpers](https://github.com/karel-burda/cmake-helpers) and [test-utils](https://github.com/karel-burda/test-utils).
 
-`cmake -Bbuild -H. -DUNIT-TESTS:BOOL=ON`
+For building tests, run CMake in the source directory [tests/unit](tests/unit):
+
+```cmake
+cmake -Bbuild -H.
+# You can also add coverage by appending "-DCOVERAGE:BOOL=ON"
+cmake -Bbuild/tests/unit -Htests/unit -Dcpp-utils_DIR:PATH=$(pwd)/build -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo
+cmake --build build/tests/unit --config RelWithDebInfo
+# This runs target "run-all-tests-verbose" that will also run the tests with timeout, etc.:
+cmake --build build/tests/unit --target run-all-tests-verbose --config RelWithDebInfo
+# Or you can execute tests manually
+```
+
+For more info, see [.travis.yml](.travis.yml).
 
 # Continuous Integration
-Continuous Integration is now being run Linux (with GCC 5.x) on Travis: https://travis-ci.org/karel-burda/cpp-utils.
+Continuous Integration is now being run Linux (with GCC 6.x) and OS X on Travis: https://travis-ci.org/karel-burda/cpp-utils.
 
-Compilers are set-up to treat warnings as errors and with pedantic warning level. Targets are built in release mode with debug symbols and code coverage measure).
+Compilers are set-up to treat warnings as errors and with pedantic warning level.
+Targets are built debug symbols with code coverage measure and release with debug symbols).
 
-The project is using just one stage (because of the overhead of spawning other stages)
-* `tests (C++14)` -- cppcheck, build (linux, gcc5), tests
+The project is using thse stages:
+* `cpp-utils, tests -- linux, debug, gcc, cppcheck, coverage`
+* `cpp-utils, tests -- osx, release with debug info, clang`
 
-Project uses [coveralls.io](https://coveralls.io/github/karel-burda/cpp-utils) for code coverage summary and [codacy](https://app.codacy.com/app/karel-burda/cpp-utils/dashboard) for the coding style and additional static analysis.
+Project uses [codecov.io](https://codecov.io/gh/karel-burda/cpp-utils) for code coverage summary.
