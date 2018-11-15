@@ -8,7 +8,7 @@ namespace
 {
 namespace time = burda::cpp_utils::time;
 
-TEST(measure_duration, measure_duration)
+TEST(measure_duration, construction_destruction)
 {
     using namespace std::chrono_literals;
 
@@ -23,5 +23,10 @@ TEST(measure_duration, measure_duration)
         const auto duration = time::measure_duration([]() { std::this_thread::sleep_for(4s); });
         EXPECT_TRUE(duration >= 4s && duration <= 8s);
     }
+}
+
+TEST(measure_duration, exceptions)
+{
+    EXPECT_THROW(time::measure_duration(nullptr), std::runtime_error);
 }
 }

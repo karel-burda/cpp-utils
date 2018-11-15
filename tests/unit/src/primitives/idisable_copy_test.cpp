@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <cpp_utils/primitives/idisable_copy.hpp>
-#include <test_utils/test_utils.hpp>
+#include <test_utils/lifetime_assertions.hpp>
 #include <test_utils/static_class_assertions.hpp>
 
 namespace

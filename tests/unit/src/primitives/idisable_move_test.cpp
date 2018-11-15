@@ -2,7 +2,7 @@
 
 #include <cpp_utils/primitives/idisable_copy.hpp>
 #include <cpp_utils/primitives/idisable_move.hpp>
-#include <test_utils/test_utils.hpp>
+#include <test_utils/lifetime_assertions.hpp>
 #include <test_utils/static_class_assertions.hpp>
 
 namespace
@@ -15,7 +15,7 @@ struct child_of_move : private primitives::idisable_move
 };
 
 struct disabled : private primitives::idisable_copy,
-    private primitives::idisable_move
+                  private primitives::idisable_move
 {
 };
 
@@ -27,6 +27,7 @@ TEST(idisable_move, static_assertions)
 
     test_utils::assert_default_constructibility<child_of_move, true>();
     test_utils::assert_copy_constructibility<child_of_move, true>();
+    test_utils::assert_move_constructibility<child_of_move, true>();
 
     test_utils::assert_default_constructibility<disabled, true>();
     test_utils::assert_copy_constructibility<disabled, false>();
