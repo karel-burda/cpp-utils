@@ -27,11 +27,21 @@ jobs:
        script:
          - set -e
 
-         - cppcheck --enable=all -I include --language=c++ --platform=unix64 --std=c++11 --check-config --suppress=missingIncludeSystem
+         - cppcheck --enable=all
+                    -I include
+                    --language=c++
+                    --platform=unix64
+                    --std=c++11
+                    --check-config
+                    --suppress=missingIncludeSystem
                     -v ./tests
 
          - cmake -Bbuild -H. -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE
-         - cmake -Bbuild/tests/unit -Htests/unit -Dcpp-utils_DIR:PATH=$(pwd)/build -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE
+         - cmake -Bbuild/submodules/test-utils -Hsubmodules/test-utils -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE
+         - cmake -Bbuild/tests/unit -Htests/unit
+                 -Dcpp-utils_DIR:PATH=$(pwd)/build
+                 -Dtest-utils-utils_DIR:PATH=$(pwd)/build/submodules/test-utils
+                 -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE
                  -DCOVERAGE:BOOL=ON
          - cmake --build build/tests/unit --target run-all-tests-verbose --config $BUILD_TYPE
 
