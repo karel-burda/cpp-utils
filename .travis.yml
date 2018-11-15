@@ -55,11 +55,15 @@ jobs:
        env: BUILD_TYPE="RelWithDebInfo"
        compiler: clang
        script:
-       - set -e
+         - set -e
 
-       - cmake -Bbuild -H. -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE
-       - cmake -Bbuild/tests/unit -Htests/unit -Dcpp-utils_DIR:PATH=$(pwd)/build -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE
-               -DCOVERAGE:BOOL=ON
-       - cmake --build build/tests/unit --target run-all-tests-verbose --config $BUILD_TYPE
+         - cmake -Bbuild -H. -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE
+         - cmake -Bbuild/submodules/test-utils -Hsubmodules/test-utils -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE
+         - cmake -Bbuild/tests/unit -Htests/unit
+                 -Dcpp-utils_DIR:PATH=$(pwd)/build
+                 -Dtest-utils_DIR:PATH=$(pwd)/build/submodules/test-utils
+                 -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE
+                 -DCOVERAGE:BOOL=ON
+         - cmake --build build/tests/unit --target run-all-tests-verbose --config $BUILD_TYPE
 
-       - set +e
+         - set +e
