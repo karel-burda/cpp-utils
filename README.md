@@ -10,11 +10,11 @@ If you just want to use the implementation, you can clone without sub-modules. I
 with `--recurse-submodules` or `--recursive` on older versions of git. Alternatively, you can clone without sub-modules and initialize these later.
 
 # Introduction
-`cpp-utils` features tiny c++ helpers and primitives that are used across my projects.
+`cpp-utils` features tiny C++ helpers and primitives that are used across my projects.
 
 Implementation is header-only and written in C++ 14 and tested on Windows, Linux and OS X.
 
-See [include/test_utils](include/test_utils) for main functionality and [tests/unit](tests/unit) for unit tests.
+See [include/cpp_utils](include/tcpp_utils) for main functionality and [tests/unit](tests/unit) for unit tests.
 
 # Usage
 There are basically these options when it comes to build system integration:
@@ -82,8 +82,8 @@ You also have to set C++14 standard and potentially other settings as well.
 ## Examples
 For full examples, see implementation of [tests](tests/unit).
 
-### idisable_copy.hpp
-Test implemented at: [idisable_copy_test.cpp](tests/unit/src/idisable_copy_test.cpp)
+### [idisable_copy.hpp](include/cpp_utils/primitives/lifetime_assertions.hpp)
+Test implemented at: [idisable_copy_test.cpp](tests/unit/src/primitives/idisable_copy_test.cpp)
 ```cpp
 #include <cpp_utils/primitives/idisable_copy.hpp>
 
@@ -93,8 +93,8 @@ class foo : private burda::cpp_utils::primitives::idisable_copy
 };
 ```
 
-### idisable_move.hpp
-Test implemented at: [idisable_move_test.cpp](tests/unit/src/idisable_move_test.cpp)
+### [idisable_move.hpp](include/cpp_utils/primitives/lifetime_assertions.hpp)
+Test implemented at: [idisable_move_test.cpp](tests/unit/src/primitives/idisable_move_test.cpp)
 ```cpp
 #include <cpp_utils/primitives/idisable_move.hpp>
 
@@ -109,8 +109,8 @@ class crippled : private burda::cpp_utils::primitives::idisable_move
 }
 ```
 
-### measure_duration.hpp
-Test implemented at: [measure_duration_test.cpp](tests/unit/src/measure_duration_test.cpp)
+### [measure_duration.hpp](include/cpp_utils/time/measure_duration.hpp)
+Test implemented at: [measure_duration_test.cpp](tests/unit/src/time/measure_duration_test.cpp)
 ```cpp
 #include <cpp_utils/time/measure_duration.hpp>
 
