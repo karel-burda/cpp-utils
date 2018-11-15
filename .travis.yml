@@ -1,6 +1,6 @@
 stages:
   - cpp-utils, tests -- linux, debug, gcc, cppcheck, coverage
-  - vpp-utils, tests -- osx, release with debug info, clang
+  - cpp-utils, tests -- osx, release with debug info, clang
 
 git:
   depth: 1

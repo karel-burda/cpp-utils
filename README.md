@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-1.0.2-green.svg)
+![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
 [![License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat)](LICENSE)
 [![Build Status](https://travis-ci.org/karel-burda/cpp-utils.svg?branch=develop)](https://travis-ci.org/karel-burda/cpp-utils)
 [![Codecov Status](https://codecov.io/gh/karel-burda/cpp-utils/branch/develop/graph/badge.svg)](https://codecov.io/gh/karel-burda/cpp-utils/branch/develop)
@@ -82,7 +82,7 @@ You also have to set C++14 standard and potentially other settings as well.
 ## Examples
 For full examples, see implementation of [tests](tests/unit).
 
-### [idisable_copy.hpp](include/cpp_utils/primitives/lifetime_assertions.hpp)
+### [idisable_copy.hpp](include/cpp_utils/primitives/idisable_copy.hpp)
 Test implemented at: [idisable_copy_test.cpp](tests/unit/src/primitives/idisable_copy_test.cpp)
 ```cpp
 #include <cpp_utils/primitives/idisable_copy.hpp>
@@ -93,7 +93,7 @@ class foo : private burda::cpp_utils::primitives::idisable_copy
 };
 ```
 
-### [idisable_move.hpp](include/cpp_utils/primitives/lifetime_assertions.hpp)
+### [idisable_move.hpp](include/cpp_utils/primitives/idisable_move.hpp)
 Test implemented at: [idisable_move_test.cpp](tests/unit/src/primitives/idisable_move_test.cpp)
 ```cpp
 #include <cpp_utils/primitives/idisable_move.hpp>
