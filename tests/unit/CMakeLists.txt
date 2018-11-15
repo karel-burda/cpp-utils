@@ -20,13 +20,13 @@ target_sources(${PROJECT_NAME}
 
 find_package(cpp-utils CONFIG REQUIRED)
 message(STATUS "Found version of cpp-utils is: ${cpp-utils_VERSION}")
-target_link_libraries(${PROJECT_NAME} burda::cpp-utils)
+target_link_libraries(${PROJECT_NAME} PRIVATE burda::cpp-utils)
 
 find_package(test-utils CONFIG REQUIRED)
 message(STATUS "Found version of test-utils is: ${test-utils_VERSION}")
 target_link_libraries(${PROJECT_NAME} PRIVATE burda::test-utils)
 
-burda_cmake_helpers_cpp_gtest_bootstrap_and_link(${PROJECT_NAME} "release-1.8.1" "Release")
+burda_cmake_helpers_cpp_gtest_bootstrap_and_link(${PROJECT_NAME} "release-1.8.1" "Release" PRIVATE)
 
 if (COVERAGE)
     message(STATUS "Building unit tests with code coverage")
