@@ -14,7 +14,7 @@ with `--recurse-submodules` or `--recursive` on older versions of git. Alternati
 
 Implementation is header-only and written in C++ 14 and tested on Windows, Linux and OS X.
 
-See [include/cpp_utils](include/tcpp_utils) for main functionality and [tests/unit](tests/unit) for unit tests.
+See [include/cpp_utils](include/cpp_utils) for main functionality and [tests/unit](tests/unit) for unit tests.
 
 # Usage
 There are basically these options when it comes to build system integration:
@@ -139,9 +139,9 @@ For more info, see [.travis.yml](.travis.yml).
 Continuous Integration is now being run Linux (with GCC 6.x) and OS X on Travis: https://travis-ci.org/karel-burda/cpp-utils.
 
 Compilers are set-up to treat warnings as errors and with pedantic warning level.
-Targets are built debug symbols with code coverage measure and release with debug symbols).
+Targets are built in one stage with debug symbols with code coverage measure and in release mode with debug symbols in the second one.
 
-The project is using thse stages:
+The project is using these stages:
 * `cpp-utils, tests -- linux, debug, gcc, cppcheck, coverage`
 * `cpp-utils, tests -- osx, release with debug info, clang`
 
