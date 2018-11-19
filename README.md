@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
+![Version](https://img.shields.io/badge/version-1.0.1-green.svg)
 [![License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat)](LICENSE)
 [![Build Status](https://travis-ci.org/karel-burda/cpp-utils.svg?branch=master)](https://travis-ci.org/karel-burda/cpp-utils)
 [![Codecov Status](https://codecov.io/gh/karel-burda/cpp-utils/branch/master/graph/badge.svg)](https://codecov.io/gh/karel-burda/cpp-utils/branch/master)
@@ -14,7 +14,7 @@ with `--recurse-submodules` or `--recursive` on older versions of git. Alternati
 
 Implementation is header-only and written in C++ 14 and tested on Windows, Linux and OS X.
 
-See [include/cpp_utils](include/tcpp_utils) for main functionality and [tests/unit](tests/unit) for unit tests.
+See [include/cpp_utils](include/cpp_utils) for main functionality and [tests/unit](tests/unit) for unit tests.
 
 # Usage
 There are basically these options when it comes to build system integration:
@@ -136,13 +136,13 @@ cmake --build build/tests/unit --target run-all-tests-verbose --config RelWithDe
 For more info, see [.travis.yml](.travis.yml).
 
 # Continuous Integration
-Continuous Integration is now being run Linux (with GCC 6.x) and OS X on Travis: https://travis-ci.org/karel-burda/cpp-utils.
+Continuous Integration is now being run Linux, OS X and Windows on Travis: https://travis-ci.org/karel-burda/cpp-utils.
 
 Compilers are set-up to treat warnings as errors and with pedantic warning level.
-Targets are built debug symbols with code coverage measure and release with debug symbols).
 
-The project is using thse stages:
-* `cpp-utils, tests -- linux, debug, gcc, cppcheck, coverage`
-* `cpp-utils, tests -- osx, release with debug info, clang`
+The project is using these stages:
+* `cpp-utils, tests -- linux, debug, cppcheck, coverage, g++, 64-bit`
+* `cpp-utils, tests -- osx, release with debug info, clang++, 64-bit`
+* `cpp-utils, tests -- windows, release, msvc, 32-bit`
 
 Project uses [codecov.io](https://codecov.io/gh/karel-burda/cpp-utils) for code coverage summary.

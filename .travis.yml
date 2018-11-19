@@ -1,19 +1,20 @@
 stages:
-  - cpp-utils, tests -- linux, debug, gcc, cppcheck, coverage
-  - cpp-utils, tests -- osx, release with debug info, clang
+  - cpp-utils, tests -- linux, debug, cppcheck, coverage, g++, 64-bit
+  - cpp-utils, tests -- osx, release with debug info, clang++, 64-bit
+  - cpp-utils, tests -- windows, release, msvc, 32-bit
 
 git:
   depth: 1
 
 jobs:
   include:
-     - stage: cpp-utils, tests -- linux, debug, gcc, cppcheck, coverage
-       sudo: required
-       dist: trusty
+     - stage: cpp-utils, tests -- linux, debug, cppcheck, coverage, g++, 64-bit
+       os: linux
+       dist: xenial
        language: cpp
        env: BUILD_TYPE="Debug"
        compiler: g++
-       os: linux
+       sudo: required
        addons:
          apt:
            sources:
@@ -49,7 +50,7 @@ jobs:
 
          - set +e
 
-     - stage: cpp-utils, tests -- osx, release with debug info, clang
+     - stage: cpp-utils, tests -- osx, release with debug info, clang++, 64-bit
        os: osx
        language: cpp
        env: BUILD_TYPE="RelWithDebInfo"
@@ -64,6 +65,23 @@ jobs:
                  -Dtest-utils_DIR:PATH=$(pwd)/build/submodules/test-utils
                  -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE
                  -DCOVERAGE:BOOL=ON
+         - cmake --build build/tests/unit --target run-all-tests-verbose --config $BUILD_TYPE
+
+         - set +e
+
+     - stage: cpp-utils, tests -- windows, release, msvc, 32-bit
+       os: windows
+       language: cpp
+       env: BUILD_TYPE="Release"
+       script:
+         - set -e
+
+         - cmake -Bbuild -H. -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE
+         - cmake -Bbuild/submodules/test-utils -Hsubmodules/test-utils -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE
+         - cmake -Bbuild/tests/unit -Htests/unit
+                 -Dcpp-utils_DIR:PATH=$(pwd)/build
+                 -Dtest-utils_DIR:PATH=$(pwd)/build/submodules/test-utils
+                 -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE
          - cmake --build build/tests/unit --target run-all-tests-verbose --config $BUILD_TYPE
 
          - set +e
