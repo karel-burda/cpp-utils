@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
+![Version](https://img.shields.io/badge/version-1.0.1-green.svg)
 [![License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat)](LICENSE)
 [![Build Status](https://travis-ci.org/karel-burda/cpp-utils.svg?branch=develop)](https://travis-ci.org/karel-burda/cpp-utils)
 [![Codecov Status](https://codecov.io/gh/karel-burda/cpp-utils/branch/develop/graph/badge.svg)](https://codecov.io/gh/karel-burda/cpp-utils/branch/develop)
@@ -139,7 +139,6 @@ For more info, see [.travis.yml](.travis.yml).
 Continuous Integration is now being run Linux, OS X and Windows on Travis: https://travis-ci.org/karel-burda/cpp-utils.
 
 Compilers are set-up to treat warnings as errors and with pedantic warning level.
-Targets are built in one stage with debug symbols with code coverage measure and in release mode with debug symbols in the second one.
 
 The project is using these stages:
 * `cpp-utils, tests -- linux, debug, cppcheck, coverage, g++, 64-bit`
