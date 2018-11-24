@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-1.0.1-green.svg)
+![Version](https://img.shields.io/badge/version-1.0.2-green.svg)
 [![License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat)](LICENSE)
 [![Build Status](https://travis-ci.org/karel-burda/cpp-utils.svg?branch=master)](https://travis-ci.org/karel-burda/cpp-utils)
 [![Codecov Status](https://codecov.io/gh/karel-burda/cpp-utils/branch/master/graph/badge.svg)](https://codecov.io/gh/karel-burda/cpp-utils/branch/master)
@@ -140,7 +140,7 @@ Continuous Integration is now being run Linux, OS X and Windows on Travis: https
 
 Compilers are set-up to treat warnings as errors and with pedantic warning level.
 
-The project is using these stages:
+The project is using these jobs:
 * `cpp-utils, tests -- linux, debug, cppcheck, coverage, g++, 64-bit`
 * `cpp-utils, tests -- osx, release with debug info, clang++, 64-bit`
 * `cpp-utils, tests -- windows, release, msvc, 32-bit`
