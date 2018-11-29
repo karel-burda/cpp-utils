@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 
-project(cpp-utils VERSION 1.0.2 LANGUAGES CXX)
+project(cpp-utils VERSION 1.0.3 LANGUAGES CXX)
 
 add_library(${PROJECT_NAME} INTERFACE)
 
