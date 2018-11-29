@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-1.0.2-green.svg)
+![Version](https://img.shields.io/badge/version-1.0.3-green.svg)
 [![License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat)](LICENSE)
 [![Build Status](https://travis-ci.org/karel-burda/cpp-utils.svg?branch=develop)](https://travis-ci.org/karel-burda/cpp-utils)
 [![Codecov Status](https://codecov.io/gh/karel-burda/cpp-utils/branch/develop/graph/badge.svg)](https://codecov.io/gh/karel-burda/cpp-utils/branch/develop)
@@ -17,6 +17,8 @@ Implementation is header-only and written in C++ 14 and tested on Windows, Linux
 See [include/cpp_utils](include/cpp_utils) for main functionality and [tests/unit](tests/unit) for unit tests.
 
 # Usage
+Few files in the `cpp-utils` are used directly within my projects -- e.g. using the full copy of the files (thus these files have own short header description regarding its origin).
+
 There are basically these options when it comes to build system integration:
 
 ## 1. CMake Way
@@ -29,7 +31,7 @@ There are essentially these ways of how to use this package depending on your pr
 Call `add_subdirectory(...)` directly in your CMakeLists.txt:
 
 ```cmake
-add_executable("my-project" main.cpp)
+add_executable(my-project main.cpp)
 
 add_subdirectory(<path-to-cpp-utils>)
 # Example: add_subdirectory(cpp-utils ${CMAKE_BINARY_DIR}/cpp-utils)
@@ -40,9 +42,8 @@ message(STATUS "Current version of cpp-utils is: ${cpp-utils_VERSION}")
 add_library(burda::cpp-utils ALIAS cpp-utils)
 
 # This will import search paths, compile definitions and other dependencies of the cpp-utils as well
-target_link_libraries("my-project" cpp-utils)
-# Or with private visibility: target_link_libraries("my-project" PRIVATE cpp-utils)
-
+target_link_libraries(my-project cpp-utils)
+# Or with private visibility: target_link_libraries(my-project PRIVATE cpp-utils)
 ```
 
 ### B) Generate separately
@@ -58,7 +59,7 @@ This will create automatically generated package configuration file `cpp-utils-c
 Then you can do this in your CMakeLists.txt:
 
 ```cmake
-add_executable("my-project" main.cpp)
+add_executable(my-project main.cpp)
 
 find_package(cpp-utils CONFIG PATHS <path-to-binary-dir-of-cpp-utils>)
 # Alternatively assuming that the "cpp-utils_DIR" variable is set: find_package(cpp-utils CONFIG)
@@ -67,9 +68,8 @@ find_package(cpp-utils CONFIG PATHS <path-to-binary-dir-of-cpp-utils>)
 message(STATUS "Found version of cpp-utils is: ${cpp-utils_VERSION}")
 
 # This will import search paths, compile definitions and other dependencies of the cpp-utils as well
-target_link_libraries("my-project" burda::cpp-utils)
-# Or with public visibility: target_link_libraries("my-project" PUBLIC burda::cpp-utils)
-
+target_link_libraries(my-project burda::cpp-utils)
+# Or with public visibility: target_link_libraries(my-project PUBLIC burda::cpp-utils)
 ```
 
 ## 2. Manual Way
@@ -77,7 +77,7 @@ Not recommended.
 
 Make sure that the `include` directory is in the search paths.
 
-You also have to set C++14 standard and potentially other settings as well.
+You also have to set C++ 14 standard and potentially other settings as well.
 
 ## Examples
 For full examples, see implementation of [tests](tests/unit).
@@ -103,7 +103,7 @@ class foo : private burda::cpp_utils::primitives::idisable_move
 {
 };
 
-class crippled : private burda::cpp_utils::primitives::idisable_move
+class disabled : private burda::cpp_utils::primitives::idisable_move
                  private burda::cpp_utils::primitives::idisable_copy
 {
 }
@@ -115,6 +115,7 @@ Test implemented at: [measure_duration_test.cpp](tests/unit/src/time/measure_dur
 #include <cpp_utils/time/measure_duration.hpp>
 
 // this should yield around 4 seconds, "duration" is of type "std::chrono<double>"
+// just the example:
  const auto duration = burda::cpp_utils::measure_duration([]() { std::this_thread::sleep_for(4s); });
 ```
 
