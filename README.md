@@ -1,32 +1,32 @@
-![Version](https://img.shields.io/badge/version-1.0.3-green.svg)
+![Version](https://img.shields.io/badge/version-1.0.4-green.svg)
 [![License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat)](LICENSE)
 [![Build Status](https://travis-ci.org/karel-burda/cpp-utils.svg?branch=master)](https://travis-ci.org/karel-burda/cpp-utils)
 [![Codecov Status](https://codecov.io/gh/karel-burda/cpp-utils/branch/master/graph/badge.svg)](https://codecov.io/gh/karel-burda/cpp-utils/branch/master)
 
-# Important
+## Important
 This project contains git sub-modules that are needed for building tests.
 
 If you just want to use the implementation, you can clone without sub-modules. In case you want to build the tests, be sure to clone the repository
 with `--recurse-submodules` or `--recursive` on older versions of git. Alternatively, you can clone without sub-modules and initialize these later.
 
-# Introduction
+## Introduction
 `cpp-utils` features tiny C++ helpers and primitives that are used across my projects.
 
 Implementation is header-only and written in C++ 14 and tested on Windows, Linux and OS X.
 
 See [include/cpp_utils](include/cpp_utils) for main functionality and [tests/unit](tests/unit) for unit tests.
 
-# Usage
+## Usage
 Few files in the `cpp-utils` are used directly within my projects -- e.g. using the full copy of the files (thus these files have own short header description regarding its origin).
 
 There are basically these options when it comes to build system integration:
 
-## 1. CMake Way
+### 1. CMake Way
 Recommended option.
 
 There are essentially these ways of how to use this package depending on your preferences our build architecture:
 
-### A) Generate directly
+#### A) Generate directly
 
 Call `add_subdirectory(...)` directly in your CMakeLists.txt:
 
@@ -46,7 +46,7 @@ target_link_libraries(my-project cpp-utils)
 # Or with private visibility: target_link_libraries(my-project PRIVATE cpp-utils)
 ```
 
-### B) Generate separately
+#### B) Generate separately
 
 Generation phase on the cpp-utils is run separately, that means that you run:
 ```cmake
@@ -72,7 +72,7 @@ target_link_libraries(my-project burda::cpp-utils)
 # Or with public visibility: target_link_libraries(my-project PUBLIC burda::cpp-utils)
 ```
 
-## 2. Manual Way
+### 2. Manual Way
 Not recommended.
 
 Make sure that the `include` directory is in the search paths.
@@ -119,7 +119,7 @@ Test implemented at: [measure_duration_test.cpp](tests/unit/src/time/measure_dur
  const auto duration = burda::cpp_utils::measure_duration([]() { std::this_thread::sleep_for(4s); });
 ```
 
-# Unit Tests
+## Unit Tests
 Tests require sub-module [cmake-helpers](https://github.com/karel-burda/cmake-helpers) and [test-utils](https://github.com/karel-burda/test-utils).
 
 For building tests, run CMake in the source directory [tests/unit](tests/unit):
@@ -136,14 +136,14 @@ cmake --build build/tests/unit --target run-all-tests-verbose --config RelWithDe
 
 For more info, see [.travis.yml](.travis.yml).
 
-# Continuous Integration
+## Continuous Integration
 Continuous Integration is now being run Linux, OS X and Windows on Travis: https://travis-ci.org/karel-burda/cpp-utils.
 
 Compilers are set-up to treat warnings as errors and with pedantic warning level.
 
 The project is using these jobs:
-* `cpp-utils, tests -- linux, debug, cppcheck, coverage, g++, 64-bit`
-* `cpp-utils, tests -- osx, release with debug info, clang++, 64-bit`
-* `cpp-utils, tests -- windows, release, msvc, 32-bit`
+  * `cpp-utils, tests -- linux, debug, cppcheck, coverage, g++, 64-bit`
+  * `cpp-utils, tests -- osx, release with debug info, clang++, 64-bit`
+  * `cpp-utils, tests -- windows, release, msvc, 32-bit`
 
 Project uses [codecov.io](https://codecov.io/gh/karel-burda/cpp-utils) for code coverage summary.
