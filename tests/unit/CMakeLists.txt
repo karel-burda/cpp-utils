@@ -34,7 +34,7 @@ burda_cmake_helpers_cpp_gtest_bootstrap_and_link(${PROJECT_NAME} "release-1.8.1"
 
 if (COVERAGE)
     message(STATUS "Building unit tests with code coverage")
-    burda_cmake_helpers_cpp_coverage_add_build_options(${PROJECT_NAME} PRIVATE)
+    burda_cmake_helpers_cpp_coverage_add_build_options(${PROJECT_NAME} PRIVATE CXX)
 endif()
 
 enable_testing()
@@ -47,5 +47,5 @@ add_custom_target(run-all-tests-verbose
                   COMMAND ${CMAKE_CTEST_COMMAND} -V -C ${CMAKE_BUILD_TYPE} --build-run-dir ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} --timeout 300
                   DEPENDS ${PROJECT_NAME})
 
-burda_cmake_helpers_cpp_warnings_add_pedantic_level(${PROJECT_NAME} PRIVATE)
-burda_cmake_helpers_cpp_warnings_suppress(${PROJECT_NAME} "keyword-macro" PRIVATE)
+burda_cmake_helpers_cpp_warnings_add_pedantic_level(${PROJECT_NAME} PRIVATE CXX)
+burda_cmake_helpers_cpp_warnings_suppress(${PROJECT_NAME} "keyword-macro" PRIVATE CXX)
