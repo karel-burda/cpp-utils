@@ -6,14 +6,14 @@ add_library(${PROJECT_NAME} INTERFACE)
 
 target_sources(${PROJECT_NAME}
                    INTERFACE
-                       ${CMAKE_CURRENT_SOURCE_DIR}/include/cpp_utils/primitives/idisable_copy.hpp
-                       ${CMAKE_CURRENT_SOURCE_DIR}/include/cpp_utils/primitives/idisable_move.hpp
+                       ${CMAKE_CURRENT_LIST_DIR}/include/cpp_utils/primitives/idisable_copy.hpp
+                       ${CMAKE_CURRENT_LIST_DIR}/include/cpp_utils/primitives/idisable_move.hpp
 
-                       ${CMAKE_CURRENT_SOURCE_DIR}/include/cpp_utils/time/measure_duration.hpp)
+                       ${CMAKE_CURRENT_LIST_DIR}/include/cpp_utils/time/measure_duration.hpp)
 
 target_include_directories(${PROJECT_NAME}
                                 INTERFACE
-                                    ${CMAKE_CURRENT_SOURCE_DIR}/include)
+                                    ${CMAKE_CURRENT_LIST_DIR}/include)
 
 target_compile_features(${PROJECT_NAME}
                             INTERFACE
@@ -23,8 +23,8 @@ install(TARGETS ${PROJECT_NAME}
         EXPORT _targets)
 
 export(EXPORT _targets
-        NAMESPACE burda::
-        FILE "${PROJECT_NAME}-config.cmake")
+       NAMESPACE burda::
+       FILE "${PROJECT_NAME}-config.cmake")
 
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake

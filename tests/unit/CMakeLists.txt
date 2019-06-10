@@ -4,18 +4,18 @@ project(tests LANGUAGES CXX)
 
 message(STATUS "Building unit tests")
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/../../submodules/cmake-helpers/cmake-helpers/cpp_coverage.cmake)
-include(${CMAKE_CURRENT_SOURCE_DIR}/../../submodules/cmake-helpers/cmake-helpers/cpp_gtest.cmake)
-include(${CMAKE_CURRENT_SOURCE_DIR}/../../submodules/cmake-helpers/cmake-helpers/cpp_warnings.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/../../submodules/cmake-helpers/cmake-helpers/cpp_coverage.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/../../submodules/cmake-helpers/cmake-helpers/cpp_gtest.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/../../submodules/cmake-helpers/cmake-helpers/cpp_warnings.cmake)
 
 add_executable(${PROJECT_NAME} "")
 
 target_sources(${PROJECT_NAME}
                    PRIVATE
-                       ${CMAKE_CURRENT_SOURCE_DIR}/src/primitives/idisable_copy_test.cpp
-                       ${CMAKE_CURRENT_SOURCE_DIR}/src/primitives/idisable_move_test.cpp
+                       ${CMAKE_CURRENT_LIST_DIR}/src/primitives/idisable_copy_test.cpp
+                       ${CMAKE_CURRENT_LIST_DIR}/src/primitives/idisable_move_test.cpp
 
-                       ${CMAKE_CURRENT_SOURCE_DIR}/src/time/measure_duration_test.cpp)
+                       ${CMAKE_CURRENT_LIST_DIR}/src/time/measure_duration_test.cpp)
 
 
 find_package(cpp-utils CONFIG REQUIRED)
