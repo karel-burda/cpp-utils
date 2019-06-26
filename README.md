@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-1.0.5-blue.svg)
+![Version](https://img.shields.io/badge/version-1.0.6-blue.svg)
 [![License](https://img.shields.io/badge/license-MIT_License-blue.svg?style=flat)](LICENSE)
 [![Build Status](https://travis-ci.org/karel-burda/cpp-utils.svg?branch=master)](https://travis-ci.org/karel-burda/cpp-utils)
 [![Codecov Status](https://codecov.io/gh/karel-burda/cpp-utils/branch/master/graph/badge.svg)](https://codecov.io/gh/karel-burda/cpp-utils/branch/master)
